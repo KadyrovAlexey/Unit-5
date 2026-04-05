@@ -3,6 +3,7 @@
 <%@ page import="java.net.URLEncoder" %>
 <html>
 <body>
+<div style="text-align:right"><a href="logout">Выйти</a></div>
 
 <h2>Мой файловый браузер</h2>
 

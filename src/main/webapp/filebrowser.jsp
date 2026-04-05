@@ -3,7 +3,10 @@
 <%@ page import="java.net.URLEncoder" %>
 <html>
 <body>
-<div style="text-align:right"><a href="logout">Выйти</a></div>
+
+<div style="text-align: right; margin-bottom: 10px;">
+    <a href="logout">Выйти</a>
+</div>
 
 <h2>Мой файловый браузер</h2>
 
@@ -11,22 +14,22 @@
 <p>Страница создана: <%= request.getAttribute("timeNow") %></p>
 
 <%
-    // Кнопка "Наверх"
     String parent = (String) request.getAttribute("parentFolder");
     if (parent != null) {
+        String encodedParent = URLEncoder.encode(parent, "UTF-8");
 %>
-    <a href="browser?path=<%= parent %>">⬆️ НАВЕРХ</a>
+    <a href="browser?path=<%= encodedParent %>">⬆️ НАВЕРХ</a>
     <br><br>
 <%
     }
 %>
 
 <table border="1" cellpadding="5">
-    <tr>
+     <tr>
         <th>Имя</th>
         <th>Размер</th>
         <th>Дата</th>
-    </tr>
+     </tr>
 
 <%
     File[] files = (File[]) request.getAttribute("files");
@@ -34,30 +37,33 @@
         for (File f : files) {
             String name = f.getName();
             String fullPath = f.getAbsolutePath();
+            String encodedPath = URLEncoder.encode(fullPath, "UTF-8");
+
             String size = "";
-            String link = "browser?path=" + URLEncoder.encode(fullPath, "UTF-8");
+            String link = "";
 
             if (f.isDirectory()) {
-                // Это папка
                 size = "&lt;ПАПКА&gt;";
+                link = "browser?path=" + encodedPath;
             } else {
-                // Это файл
                 size = f.length() + " байт";
-                link = "download?path=" + URLEncoder.encode(fullPath, "UTF-8");
+                link = "download?path=" + encodedPath;
             }
 
             String date = new java.util.Date(f.lastModified()).toString();
 %>
-    <tr>
-        <td><a href="<%= link %>"><%= name %></a></td>
-        <td><%= size %></td>
-        <td><%= date %></td>
-    </tr>
+     <tr>
+         <td><a href="<%= link %>"><%= name %></a></td>
+         <td><%= size %></td>
+         <td><%= date %></td>
+     </tr>
 <%
         }
     }
 %>
-</table>
+</
+
+table>
 
 </body>
 </html>

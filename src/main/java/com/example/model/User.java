@@ -8,7 +8,7 @@ public class User implements Serializable {
     private String password;
     private String email;
 
-    public User() {}
+
 
     public User(String login, String password, String email) {
         this.login = login;

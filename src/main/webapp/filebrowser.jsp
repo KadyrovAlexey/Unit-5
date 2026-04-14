@@ -16,7 +16,7 @@
 <%
     String parent = (String) request.getAttribute("parentFolder");
     if (parent != null) {
-        String encodedParent = URLEncoder.encode(parent, "UTF-8");
+        String encodedParent = URLEncoder.encode(parent, "UTF-8").replace("\\", "/");
 %>
     <a href="browser?path=<%= encodedParent %>">⬆️ НАВЕРХ</a>
     <br><br>
@@ -37,7 +37,7 @@
         for (File f : files) {
             String name = f.getName();
             String fullPath = f.getAbsolutePath();
-            String encodedPath = URLEncoder.encode(fullPath, "UTF-8");
+            String encodedPath = URLEncoder.encode(fullPath, "UTF-8").replace("\\", "/");
 
             String size = "";
             String link = "";

@@ -46,7 +46,11 @@ public class FileBrowserServlet extends HttpServlet {
         String canonicalCurrent = currentFolder.getCanonicalPath();
 
         if (!canonicalCurrent.startsWith(canonicalUserHome)) {
-            currentFolder = new File(userHome);
+            //currentFolder = new File(userHome);
+
+            resp.sendError(403, "Доступ запрещён: нельзя просматривать папки другого пользователя");
+            return;
+
         }
 
         File[] content = currentFolder.listFiles();
